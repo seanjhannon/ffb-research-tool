@@ -1,3 +1,5 @@
+import pandas as pd
+
 class ScoringFormat:
     """Stores a set of scoring rules."""
     def __init__(self, 
@@ -104,15 +106,15 @@ def calculate_fantasy_points(
     
     
     def calculate_fantasy_points_by_category(
-    stats_row: pd.Series, 
-    scoring_format: ScoringFormat, 
-    stat_mapping:dict, 
-    debug=False) -> dict:
-    """Calculates the total points scored by one row of stats, returning a dict mapping each scoring category to its respective points. """
-    points_by_category = {}
-    for column, scoring_attribute in stat_mapping.items():
-        if column in stats_row and hasattr(scoring_format, scoring_attribute):
-            points_by_category[scoring_attribute] =  stats_row[column] * getattr(scoring_format, scoring_attribute)
-            if debug == True:
-                print(f"{column} : {stats_row[column]}, {scoring_attribute} : {getattr(scoring_format, scoring_attribute)}")
-    return points_by_category
+        stats_row: pd.Series, 
+        scoring_format: ScoringFormat, 
+        stat_mapping:dict, 
+        debug=False) -> dict:
+        """Calculates the total points scored by one row of stats, returning a dict mapping each scoring category to its respective points. """
+        points_by_category = {}
+        for column, scoring_attribute in stat_mapping.items():
+            if column in stats_row and hasattr(scoring_format, scoring_attribute):
+                points_by_category[scoring_attribute] =  stats_row[column] * getattr(scoring_format, scoring_attribute)
+                if debug == True:
+                    print(f"{column} : {stats_row[column]}, {scoring_attribute} : {getattr(scoring_format, scoring_attribute)}")
+        return points_by_category
